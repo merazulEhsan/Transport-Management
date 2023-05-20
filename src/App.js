@@ -1,58 +1,70 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import Navbar from "./components/Navbar";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Drivers from "./components/Drivers";
+import Profile from "./components/Profile";
+import AdminLogin from "./components/AdminLogin";
+import SignUp from "./components/SignUp";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    return (
+
+
+        <BrowserRouter>
+            <Routes>
+                <Route path="/"
+                    element={
+                        <Login></Login>
+                }></Route>
+
+                <Route path="/adminLogin"
+                    element={
+                        <AdminLogin></AdminLogin>
+                }></Route>
+                <Route path="/signup"
+                    element={
+                        <SignUp></SignUp>
+                }></Route>
+
+
+                <Route path="/home"
+                    element={
+                        <Navbar></Navbar>
+                }>
+                    <Route path="dashboard"
+                        element={
+                            <Dashboard></Dashboard>
+                    }></Route>
+                    <Route path="booking"
+                        element={
+                            <Home></Home>
+                    }></Route>
+                    <Route path="drivers"
+                        element={
+                            <Drivers></Drivers>
+                    }></Route>
+                    <Route path="profile"
+                        element={
+                            <Profile></Profile>
+                    }></Route>
+                    <Route path="contact"
+                        element={
+                            <Contact></Contact>
+                    }></Route>
+                </Route>
+            </Routes>
+
+
+        </BrowserRouter>
+
+
+    );
 }
 
 export default App;
