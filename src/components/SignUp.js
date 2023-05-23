@@ -1,7 +1,36 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import auth from '../firebase.init';
+import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth";
 
 const SignUp = () => {
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+    const [name, setName] = useState('')
+    const [id, setId] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const navigate = useNavigate();
+
+
+    if (user) {
+        navigate("/login");
+    } else {
+        navigate("/");
+
+    }
+
+
+    const handleSignUp = async (e) => {
+        e.preventDefault()
+
+        if (/@g(oogle)?mail\.com$/.test(email)) {
+            await createUserWithEmailAndPassword(email, password);
+
+        }
+
+
+    }
     return (
         <>
             <div class="lg:flex">
@@ -66,24 +95,39 @@ const SignUp = () => {
                             User Sign Up
                         </h2>
                         <div class="mt-12">
-                            <form>
+                            <form onSubmit={handleSignUp}>
                                 <div>
                                     <div class="text-sm font-bold text-gray-700 tracking-wide">
                                         Full Name
                                     </div>
-                                    <input class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="text" placeholder="Mike Doe"/>
+                                    <input onChange={
+                                            (e) => setName(e.target.value)
+                                        }
+                                        class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="text"
+                                        placeholder="Mike Doe"/>
                                 </div>
                                 <div class="mt-5">
                                     <div class="text-sm font-bold text-gray-700 tracking-wide">
                                         Student Id
                                     </div>
-                                    <input class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="text" placeholder="191-35-2222"/>
+                                    <input onChange={
+                                            (e) => setId(e.target.value)
+                                        }
+                                        class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="text"
+                                        placeholder="191-35-2222"/>
                                 </div>
                                 <div class="mt-5">
                                     <div class="text-sm font-bold text-gray-700 tracking-wide">
                                         Email Address
                                     </div>
-                                    <input class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="email" placeholder="mike@gmail.com"/>
+                                    <input onChange={
+                                            (e) => setEmail(e.target.value)
+                                        }
+                                        class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="email"
+                                        placeholder="mike@gmail.com"/>
                                 </div>
                                 <div class="mt-5">
                                     <div class="flex justify-between items-center">
@@ -92,11 +136,16 @@ const SignUp = () => {
                                         </div>
 
                                     </div>
-                                    <input class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" placeholder="Enter your password"/>
+                                    <input onChange={
+                                            (e) => setPassword(e.target.value)
+                                        }
+                                        class="w-full text-lg py-1.5 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="password"
+                                        placeholder="Enter your password"/>
                                 </div>
                                 <div class="mt-10">
                                     <button class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg">
-                                        Log In
+                                        Sign Up
                                     </button>
                                 </div>
                             </form>

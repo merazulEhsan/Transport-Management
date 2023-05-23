@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import Footer from "./Footer";
+import {signOut} from "firebase/auth";
+import auth from "../firebase.init";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         var sideBar = document.getElementById("mobile-nav");
@@ -21,6 +25,10 @@ const Navbar = () => {
         }
     }, [isMenuOpen]);
 
+    const handleSignOut = () => {
+        signOut(auth)
+        navigate('/')
+    }
     return (
         <div class="max-w-[1740px] m-auto h-full bg-[#f7fafc]">
             <div>
@@ -97,13 +105,14 @@ const Navbar = () => {
 
                                 </li>
                                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                                    <Link to="/home" class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95">
+                                    <button onClick={handleSignOut}
+                                        class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
                                         </svg>
 
                                         <span class="text-sm ml-2 tracking-wide font-thin">Sign Out</span>
-                                    </Link>
+                                    </button>
 
                                 </li>
 
@@ -214,13 +223,15 @@ const Navbar = () => {
 
                                 </li>
                                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                                    <Link to="/home/profile" class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95">
+                                    <button type="submit"
+                                        onClick={handleSignOut}
+                                        class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
                                         </svg>
 
                                         <span class="text-sm ml-2 tracking-wide font-thin">Sign Out</span>
-                                    </Link>
+                                    </button>
 
                                 </li>
                             </ul>

@@ -1,7 +1,26 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {useSignInWithEmailAndPassword} from "react-firebase-hooks/auth";
+import {Link, useNavigate} from "react-router-dom";
+import auth from "../firebase.init";
 
 const Login = () => {
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+
+        await signInWithEmailAndPassword(email, password);
+
+    }
+    if (user) {
+        navigate("/home/booking");
+    }
+
+
     return (
         <>
             <div class="lg:flex">
@@ -25,17 +44,22 @@ const Login = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
+                    <div class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-10 xl:px-24 xl:max-w-2xl">
                         <h2 class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl  xl:text-bold">
                             User Log In
                         </h2>
                         <div class="mt-12">
-                            <form>
+                            <form onSubmit={handleLogin}>
                                 <div>
                                     <div class="text-sm font-bold text-gray-700 tracking-wide">
                                         Email Address
                                     </div>
-                                    <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="" placeholder="mike@gmail.com"/>
+                                    <input onChange={
+                                            (e) => setEmail(e.target.value)
+                                        }
+                                        class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="email"
+                                        placeholder="mike@gmail.com"/>
                                 </div>
                                 <div class="mt-8">
                                     <div class="flex justify-between items-center">
@@ -48,16 +72,31 @@ const Login = () => {
                                             </a>
                                         </div>
                                     </div>
-                                    <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="" placeholder="Enter your password"/>
+                                    <input onChange={
+                                            (e) => setPassword(e.target.value)
+                                        }
+                                        class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                                        type="password"
+                                        placeholder="Enter your password"/>
                                 </div>
                                 <div class="mt-10">
-                                    <Link to='/home/booking'>
-                                        <button class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg">
-                                            Log In
-                                        </button>
-                                    </Link>
+
+                                    <button class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg">
+                                        Log In
+                                    </button>
+
                                 </div>
                             </form>
+                            {
+                            error && <div class="bg-red-100 border mt-4  text-red-700 px-4 py-1.5 rounded relative" role="alert">
+
+                                <span class="block sm:inline">
+                                    {
+                                    error ?. message
+                                }</span>
+
+                            </div>
+                        }
                             <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                                 Don't have an account ?
                                 <Link to='/signup' class="cursor-pointer text-indigo-600 hover:text-indigo-800">

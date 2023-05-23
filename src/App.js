@@ -9,7 +9,6 @@ import Profile from "./components/Profile";
 import AdminLogin from "./components/AdminLogin";
 import SignUp from "./components/SignUp";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
 
 
 function App() {
