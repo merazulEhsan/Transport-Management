@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { signOut } from "firebase/auth";
 import auth from "../firebase.init";
+import Header from "./Header";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -458,8 +459,9 @@ const Navbar = () => {
           </div>
           {/* <!-- Sidebar ends -->
                     <!-- Remove class [ h-64 ] when adding a card block --> */}
-          <div class="container mx-auto overflow-auto h-screen md:w-4/5 w-11/12 px-6 ">
+          <div class="container mx-auto overflow-y-auto  h-screen md:w-4/5 w-full px-6 ">
             <div class="w-full h-full">
+              <Header></Header>
               <Outlet></Outlet>
 
               <Footer></Footer>

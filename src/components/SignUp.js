@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import auth from "../firebase.init";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import Loading from "./Loading";
+import baseUrl from "../baseUrl";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile] = useUpdateProfile(auth);
+
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +22,15 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   if (user) {
+    fetch(baseUrl + `/users/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ name, id, email }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     navigate("/login");
   }
 
@@ -27,6 +43,7 @@ const SignUp = () => {
 
     if (/@g(oogle)?mail\.com$/.test(email)) {
       await createUserWithEmailAndPassword(email, password);
+      await updateProfile({ displayName: name });
     }
   };
   return (

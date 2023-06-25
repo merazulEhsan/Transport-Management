@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import AdminLogin from "./components/AdminLogin";
 import SignUp from "./components/SignUp";
 import Contact from "./components/Contact";
+import About from "./components/About";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="drivers" element={<Drivers />}></Route>
           <Route path="profile" element={<Profile />}></Route>
           <Route path="contact" element={<Contact />}></Route>
+          <Route path="about" element={<About />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
