@@ -26,7 +26,7 @@ const AdminLogin = () => {
 
     if (admin) {
       await signInWithEmailAndPassword(email, password);
-      navigate("/admin");
+      navigate("/admin/dashboard");
     } else {
       setIsError("You are not an admin");
     }

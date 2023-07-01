@@ -122,6 +122,7 @@ const Home = () => {
                   <option value="Narayangang">Narayangang</option>
                   <option value="Banani">Banani</option>
                   <option value="Dsc">Dsc</option>
+                  <option value="Savar">Savar</option>
                 </select>
               </div>
             </div>

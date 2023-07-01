@@ -15,6 +15,9 @@ import ManageUsers from "./components/adminPanel/ManageUsers";
 import AdminDashboard from "./components/adminPanel/Dashboard";
 import AddAdmin from "./components/adminPanel/AddAdmin";
 import AddRoute from "./components/adminPanel/AddRoute";
+import NotFound from "./components/NotFound";
+import UserVerification from "./components/hooks/UserVerification";
+import RequireAdmin from "./components/hooks/RequireAdmin";
 
 function App() {
   return (
@@ -25,7 +28,14 @@ function App() {
         <Route path="/adminLogin" element={<AdminLogin />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
 
-        <Route path="/" element={<Navbar />}>
+        <Route
+          path="/"
+          element={
+            <UserVerification>
+              <Navbar />
+            </UserVerification>
+          }
+        >
           <Route path="routes" element={<BusRoutes />}></Route>
           <Route path="booking" element={<Home />}></Route>
           <Route path="drivers" element={<Drivers />}></Route>
@@ -33,12 +43,20 @@ function App() {
           <Route path="contact" element={<Contact />}></Route>
           <Route path="about" element={<About />}></Route>
         </Route>
-        <Route path="/admin" element={<AdminNavbar />}>
+        <Route
+          path="/admin"
+          element={
+            <RequireAdmin>
+              <AdminNavbar />
+            </RequireAdmin>
+          }
+        >
           <Route path="addadmin" element={<AddAdmin />}></Route>
           <Route path="manageusers" element={<ManageUsers />}></Route>
           <Route path="dashboard" element={<AdminDashboard />}></Route>
           <Route path="addroute" element={<AddRoute />}></Route>
         </Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </BrowserRouter>
   );

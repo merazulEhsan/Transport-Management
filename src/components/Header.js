@@ -1,9 +1,25 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import { useQuery } from "react-query";
+import baseUrl from "../baseUrl";
+import Loading from "./Loading";
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  const {
+    isLoading,
+    refetch,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () =>
+      fetch(baseUrl + `/users/${user?.email}`).then((res) => res.json()),
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <nav class="bg-white border-gray-200 dark:bg-gray-900 mb-6 shadow-sm sticky top-0 z-30 border border-b-gray-300">
@@ -72,7 +88,7 @@ const Header = () => {
             </div>
           </button>
           <span className="font-poppins font-thin1 text-sm">
-            {user?.displayName}
+            {profile?.name}
           </span>
         </div>
       </div>
