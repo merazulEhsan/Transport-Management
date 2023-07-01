@@ -1,35 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import baseUrl from "../baseUrl";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import Loading from "./Loading";
+import useAdmin from "./hooks/useAdmin";
 
 const AdminLogin = () => {
-  const [admin, setAdmin] = useState(false);
-  const [isError, setIsError] = useState("");
-
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [isError, setIsError] = useState("");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    if (email) {
-      fetch(baseUrl + `/admin/${email}`, {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAdmin(data.admin);
-        });
-    }
-  }, [email]);
+  const [admin] = useAdmin(email);
+
+  console.log(admin);
 
   if (loading) {
     return <Loading></Loading>;
@@ -39,12 +26,10 @@ const AdminLogin = () => {
 
     if (admin) {
       await signInWithEmailAndPassword(email, password);
-      navigate("/booking");
+      navigate("/admin");
     } else {
-      setIsError("You are not a admin");
+      setIsError("You are not an admin");
     }
-
-    setIsError("");
   };
 
   return (
@@ -130,7 +115,7 @@ const AdminLogin = () => {
 
             <div class="mt-6 text-sm font-display font-semibold text-gray-700 text-center">
               <Link
-                to="/"
+                to="/login"
                 class="cursor-pointer text-indigo-600 hover:text-indigo-800"
               >
                 User Login

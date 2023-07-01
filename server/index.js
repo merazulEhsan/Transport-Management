@@ -30,6 +30,9 @@ async function run() {
     const bookingCollection = client
       .db("transport_management")
       .collection("booking");
+    const routeCollection = client
+      .db("transport_management")
+      .collection("routes");
 
     //Create Users
     app.put("/users/:email", async (req, res) => {
@@ -62,6 +65,13 @@ async function run() {
       res.send(user);
     });
 
+    // Create Admin
+    app.post("/users", async (req, res) => {
+      const admin = req.body;
+      const result = await userCollection.insertOne(admin);
+      res.send(result);
+    });
+
     // Create Booking
     app.post("/booking", async (req, res) => {
       const booking = req.body;
@@ -85,13 +95,45 @@ async function run() {
       const result = await bookingCollection.deleteOne(query);
       res.send(result);
     });
+    // User Delete
+    app.delete("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {
+        _id: new ObjectId(id),
+      };
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
 
     // Admin
     app.get("/admin/:email", async (req, res) => {
       const email = req.params.email;
       const user = await userCollection.findOne({ email: email });
-      const isAdmin = user?.roll === "admin";
+      const isAdmin = user?.role === "admin";
       res.send({ admin: isAdmin });
+    });
+
+    // Create Route
+    app.post("/routes", async (req, res) => {
+      const route = req.body;
+      const result = await routeCollection.insertOne(route);
+      res.send(result);
+    });
+    // Get all Routes
+    app.get("/routes", async (req, res) => {
+      const query = {};
+      const cursor = await routeCollection.find(query).toArray();
+      res.send(cursor);
+    });
+
+    // Route Delete
+    app.delete("/routes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {
+        _id: new ObjectId(id),
+      };
+      const result = await routeCollection.deleteOne(query);
+      res.send(result);
     });
   } finally {
   }

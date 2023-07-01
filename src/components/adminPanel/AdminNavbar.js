@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { signOut } from "firebase/auth";
-import auth from "../firebase.init";
-import Header from "./Header";
 
-const Navbar = () => {
+import Header from "./Header";
+import auth from "../../firebase.init";
+
+const AdminNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -47,8 +48,8 @@ const Navbar = () => {
               <ul class="mt-8 space-y-3 font-thin font-poppins ">
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/booking"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/dashboard"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-20 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -58,31 +59,15 @@ const Navbar = () => {
                       <path d="M510 486V216h330v270H510ZM120 606V216h330v390H120Zm390 330V546h330v390H510Zm-390 0V666h330v270H120Zm60-390h210V276H180v270Zm390 330h210V606H570v270Zm0-450h210V276H570v150ZM180 876h210V726H180v150Zm210-330Zm180-120Zm0 180ZM390 726Z" />
                     </svg>
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Booking
+                      Dashboard
                     </span>
                   </Link>
                 </li>
+
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/routes"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5 !fill-[#7d84ab] group-hover:!fill-[#dee2ec]"
-                      viewBox="0 96 960 960"
-                    >
-                      <path d="M249 936q-13 0-23-7.5T216 909v-84q-29-16-42.5-46T160 715V318q0-74 76.5-108T481 176q166 0 242.5 34T800 318v397q0 34-13.5 64T744 825v84q0 12-10 19.5t-23 7.5h-19q-14 0-24-7.5T658 909v-55H302v55q0 12-10 19.5t-24 7.5h-19Zm232-644h259-520 261Zm177 293H220h520-82Zm-438-60h520V352H220v173Zm106 219q23 0 39-16t16-39q0-23-16-39t-39-16q-23 0-39 16t-16 39q0 23 16 39t39 16Zm308 0q23 0 39-16t16-39q0-23-16-39t-39-16q-23 0-39 16t-16 39q0 23 16 39t39 16ZM220 292h520q-24-26-92-41t-167-15q-118 0-181 13.5T220 292Zm82 502h356q35 0 58.5-27t23.5-62V585H220v120q0 35 23.5 62t58.5 27Z" />
-                    </svg>
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      Routes
-                    </span>
-                  </Link>
-                </li>
-                <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                  <Link
-                    to="/drivers"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/manageusers"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-16 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -100,13 +85,13 @@ const Navbar = () => {
                     </svg>
 
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Drivers
+                      Manage Users
                     </span>
                   </Link>
                 </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/profile"
+                    to="/admin/addadmin"
                     class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
@@ -124,66 +109,34 @@ const Navbar = () => {
                       />
                     </svg>
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Profile
+                      Add Admin
                     </span>
                   </Link>
                 </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/contact"
+                    to="/admin/addroute"
                     class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-4 h-4"
+                      height="20"
+                      viewBox="0 -960 960 960"
+                      width="20"
+                      fill="currentColor"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                      />
+                      <path d="m612-120-263-93-179 71q-17 9-33.5-1T120-173v-558q0-13 7.5-23t19.5-15l202-71 263 92 178-71q17-8 33.5 1.5T840-788v565q0 11-7.5 19T814-192l-202 72Zm-34-75v-505l-196-66v505l196 66Zm60 0 142-47v-512l-142 54v505Zm-458-12 142-54v-505l-142 47v512Zm458-493v505-505Zm-316-66v505-505Z" />
                     </svg>
+                    <span class="text-sm ml-2 tracking-wide font-thin">
+                      Add Route
+                    </span>
+                  </Link>
+                </li>
 
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      Contact
-                    </span>
-                  </Link>
-                </li>
-                <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                  <Link
-                    to="/about"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-stack"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="12 4 4 8 12 12 20 8 12 4" />
-                      <polyline points="4 12 12 16 20 12" />
-                      <polyline points="4 16 12 20 20 16" />
-                    </svg>
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      About Us
-                    </span>
-                  </Link>
-                </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <button
                     onClick={handleSignOut}
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-20 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -287,8 +240,8 @@ const Navbar = () => {
               >
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/booking"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/dashboard"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-20 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -298,31 +251,15 @@ const Navbar = () => {
                       <path d="M510 486V216h330v270H510ZM120 606V216h330v390H120Zm390 330V546h330v390H510Zm-390 0V666h330v270H120Zm60-390h210V276H180v270Zm390 330h210V606H570v270Zm0-450h210V276H570v150ZM180 876h210V726H180v150Zm210-330Zm180-120Zm0 180ZM390 726Z" />
                     </svg>
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Booking
+                      Dashboard
                     </span>
                   </Link>
                 </li>
+
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/dashboard"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5 !fill-[#7d84ab] group-hover:!fill-[#dee2ec]"
-                      viewBox="0 96 960 960"
-                    >
-                      <path d="M249 936q-13 0-23-7.5T216 909v-84q-29-16-42.5-46T160 715V318q0-74 76.5-108T481 176q166 0 242.5 34T800 318v397q0 34-13.5 64T744 825v84q0 12-10 19.5t-23 7.5h-19q-14 0-24-7.5T658 909v-55H302v55q0 12-10 19.5t-24 7.5h-19Zm232-644h259-520 261Zm177 293H220h520-82Zm-438-60h520V352H220v173Zm106 219q23 0 39-16t16-39q0-23-16-39t-39-16q-23 0-39 16t-16 39q0 23 16 39t39 16Zm308 0q23 0 39-16t16-39q0-23-16-39t-39-16q-23 0-39 16t-16 39q0 23 16 39t39 16ZM220 292h520q-24-26-92-41t-167-15q-118 0-181 13.5T220 292Zm82 502h356q35 0 58.5-27t23.5-62V585H220v120q0 35 23.5 62t58.5 27Z" />
-                    </svg>
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      Buses
-                    </span>
-                  </Link>
-                </li>
-                <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                  <Link
-                    to="/drivers"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/manageusers"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-16 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -340,14 +277,14 @@ const Navbar = () => {
                     </svg>
 
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Drivers
+                      Manage Users
                     </span>
                   </Link>
                 </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/profile"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/addadmin"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -364,67 +301,34 @@ const Navbar = () => {
                       />
                     </svg>
                     <span class="text-sm ml-2 tracking-wide font-thin">
-                      Profile
+                      Add Admin
                     </span>
                   </Link>
                 </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <Link
-                    to="/contact"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    to="/admin/addroute"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-4 h-4"
+                      height="20"
+                      viewBox="0 -960 960 960"
+                      width="20"
+                      fill="currentColor"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                      />
+                      <path d="m612-120-263-93-179 71q-17 9-33.5-1T120-173v-558q0-13 7.5-23t19.5-15l202-71 263 92 178-71q17-8 33.5 1.5T840-788v565q0 11-7.5 19T814-192l-202 72Zm-34-75v-505l-196-66v505l196 66Zm60 0 142-47v-512l-142 54v505Zm-458-12 142-54v-505l-142 47v512Zm458-493v505-505Zm-316-66v505-505Z" />
                     </svg>
+                    <span class="text-sm ml-2 tracking-wide font-thin">
+                      Add Route
+                    </span>
+                  </Link>
+                </li>
 
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      Contact
-                    </span>
-                  </Link>
-                </li>
-                <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
-                  <Link
-                    to="/about"
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-stack"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="12 4 4 8 12 12 20 8 12 4" />
-                      <polyline points="4 12 12 16 20 12" />
-                      <polyline points="4 16 12 20 20 16" />
-                    </svg>
-                    <span class="text-sm ml-2 tracking-wide font-thin">
-                      About Us
-                    </span>
-                  </Link>
-                </li>
                 <li class="flex w-full justify-between gap-x-1.5 text-[#7d84ab] cursor-pointer items-center group">
                   <button
-                    type="submit"
                     onClick={handleSignOut}
-                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-10 pr-24 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
+                    class="flex items-center focus:outline-none focus:bg-white focus:bg-opacity-10 pl-8 pr-20 py-1.5 rounded-r-lg group-hover:text-[#dee2ec] hover:bg-opacity-10 active:scale-95"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -464,4 +368,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

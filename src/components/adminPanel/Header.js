@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
+import auth from "../../firebase.init";
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -56,6 +56,7 @@ const Header = () => {
             class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           >
             <span class="sr-only">Open user menu</span>
+
             <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
               <svg
                 class="absolute w-12 h-12 text-gray-400 -left-1"

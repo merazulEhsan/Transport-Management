@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <footer class="mt-10 mb-6 sticky top-[100vh] px-6">
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between">
         <small>
           <span className="font-poppins font-bold">© 2023 DIU</span>
           <span>&#10084;</span>

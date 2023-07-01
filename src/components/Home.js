@@ -66,7 +66,6 @@ const Home = () => {
 
   const filterByEmail = bookings?.filter((booking) => booking.email === email);
 
-  console.log(filterByEmail);
   return (
     <section className="mb-10 lg:mb-0">
       {/* <!-- Input Data --> */}

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import BusRoutes from "./components/Routes";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Drivers from "./components/Drivers";
@@ -10,6 +10,11 @@ import AdminLogin from "./components/AdminLogin";
 import SignUp from "./components/SignUp";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import AdminNavbar from "./components/adminPanel/AdminNavbar";
+import ManageUsers from "./components/adminPanel/ManageUsers";
+import AdminDashboard from "./components/adminPanel/Dashboard";
+import AddAdmin from "./components/adminPanel/AddAdmin";
+import AddRoute from "./components/adminPanel/AddRoute";
 
 function App() {
   return (
@@ -21,12 +26,18 @@ function App() {
         <Route path="/signup" element={<SignUp />}></Route>
 
         <Route path="/" element={<Navbar />}>
-          <Route path="dashboard" element={<Dashboard />}></Route>
+          <Route path="routes" element={<BusRoutes />}></Route>
           <Route path="booking" element={<Home />}></Route>
           <Route path="drivers" element={<Drivers />}></Route>
           <Route path="profile" element={<Profile />}></Route>
           <Route path="contact" element={<Contact />}></Route>
           <Route path="about" element={<About />}></Route>
+        </Route>
+        <Route path="/admin" element={<AdminNavbar />}>
+          <Route path="addadmin" element={<AddAdmin />}></Route>
+          <Route path="manageusers" element={<ManageUsers />}></Route>
+          <Route path="dashboard" element={<AdminDashboard />}></Route>
+          <Route path="addroute" element={<AddRoute />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

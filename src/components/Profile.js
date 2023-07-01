@@ -8,7 +8,6 @@ import Loading from "./Loading";
 const Profile = () => {
   const [user] = useAuthState(auth);
   const [showModal, setShowModal] = useState(false);
-  // const [profile, setProfile] = useState([]);
 
   const [name, setName] = useState("");
   const [id, setSId] = useState("");
@@ -17,27 +16,6 @@ const Profile = () => {
   const [cAddress, setCAdress] = useState("");
   const [pAddress, setPAddress] = useState("");
   const [dept, setDept] = useState("");
-
-  // useEffect(() => {
-  //   fetch(baseUrl + `/users/${user?.email}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setProfile(data));
-  // }, [user?.email]);
-
-  // const {
-  //   isLoading,
-  //   data: profile,
-  //   refetch,
-  // } = useQuery("profile", () =>
-  //   fetch(baseUrl + `/users/${user?.email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => data)
-  // );
 
   const {
     isLoading,
@@ -118,7 +96,7 @@ const Profile = () => {
               </li>
               <li class="flex items-center py-3">
                 <span>Member since</span>
-                <span class="ml-auto">Nov 07, 2016</span>
+                <span class="ml-auto">{user?.metadata?.creationTime}</span>
               </li>
             </ul>
           </div>

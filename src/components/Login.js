@@ -3,6 +3,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
 import Loading from "./Loading";
+import useAdmin from "./hooks/useAdmin";
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -11,18 +12,23 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState("");
+  const [admin] = useAdmin(email);
 
   if (loading) {
     return <Loading></Loading>;
   }
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    await signInWithEmailAndPassword(email, password);
+    if (!admin) {
+      await signInWithEmailAndPassword(email, password);
+      navigate("/booking");
+    } else {
+      setIsError("Please use your user account");
+    }
   };
-  if (user) {
-    navigate("/booking");
-  }
 
   return (
     <>
@@ -106,6 +112,14 @@ const Login = () => {
                   role="alert"
                 >
                   <span class="block sm:inline">{error?.message}</span>
+                </div>
+              )}
+              {isError && (
+                <div
+                  class="bg-red-100 border mt-4  text-red-700 px-4 py-1.5 rounded relative"
+                  role="alert"
+                >
+                  <span class="block sm:inline">{isError}</span>
                 </div>
               )}
               <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
