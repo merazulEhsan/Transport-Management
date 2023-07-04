@@ -8,14 +8,14 @@ import useAdmin from "./useAdmin";
 
 const RequireAdmin = ({ children }) => {
   const [user, loading] = useAuthState(auth);
-  const [admin, isLoading] = useAdmin(user);
+
   const location = useLocation();
 
-  if (loading || isLoading) {
+  if (loading) {
     return <Loading></Loading>;
   }
 
-  if (!user || !admin) {
+  if (!user) {
     signOut(auth);
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }

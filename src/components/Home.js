@@ -26,15 +26,18 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged === true) {
-          setFrom("");
-          setTo("");
-          setDate("");
-          setPerson("");
           refetch();
+          reset();
         }
       });
   };
 
+  const reset = () => {
+    setFrom("");
+    setTo("");
+    setDate("");
+    setPerson("");
+  };
   // Show Booking
   const {
     isLoading,

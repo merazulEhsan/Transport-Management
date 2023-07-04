@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import baseUrl from "../baseUrl";
 import Loading from "./Loading";
 
 const Routes = () => {
+  const [search, setSearch] = useState("");
   const {
     isLoading,
     data: routes,
@@ -15,6 +16,11 @@ const Routes = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
+
+  const searching = routes?.filter((route) =>
+    route.routeName.toLowerCase().includes(search)
+  );
+
   return (
     <>
       <div class="mt-8 mb-8">
@@ -50,7 +56,8 @@ const Routes = () => {
               type="text"
               id="table-search-users"
               class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search for users"
+              placeholder="Search for route"
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
@@ -79,7 +86,7 @@ const Routes = () => {
             </tr>
           </thead>
           <tbody>
-            {routes?.map((route) => (
+            {searching?.map((route) => (
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">{route.routeNo}</td>
 

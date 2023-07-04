@@ -6,7 +6,7 @@ import Loading from "../Loading";
 
 const AddRoute = () => {
   const [showModal, setShowModal] = useState(false);
-
+  const [search, setSearch] = useState("");
   const [routeNo, setRouteNo] = useState("");
   const [startTime, setStartTime] = useState("");
   const [routeName, setRouteName] = useState("");
@@ -69,6 +69,10 @@ const AddRoute = () => {
       });
   };
 
+  const searching = routes?.filter((route) =>
+    route.routeName.toLowerCase().includes(search)
+  );
+
   const reset = () => {
     setRouteNo("");
     setStartTime("");
@@ -114,7 +118,8 @@ const AddRoute = () => {
                 type="text"
                 id="table-search-users"
                 class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for users"
+                placeholder="Search for route"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <button
@@ -167,40 +172,54 @@ const AddRoute = () => {
               </tr>
             </thead>
             <tbody>
-              {routes?.map((route) => (
+              {searching?.map((route) => (
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <td class="px-6 py-4">{route.routeNo}</td>
+                  <td class="px-4 py-4">{route.routeNo}</td>
 
-                  <td class="px-6 py-4">{route.startTime}</td>
-                  <td class="px-6 py-4">{route.routeName}</td>
-                  <td class="px-6 py-4">{route.routeDetails}</td>
-                  <td class="px-6 py-4">{route.departureTime}</td>
+                  <td class="px-4 py-4">{route.startTime}</td>
+                  <td class="px-4 py-4">{route.routeName}</td>
+                  <td class="px-4 py-4">{route.routeDetails}</td>
+                  <td class="px-4 py-4">{route.departureTime}</td>
 
-                  <td class="px-6 py-4 cursor-pointer text-blue-500">
+                  <td class="px-4 py-4 cursor-pointer text-blue-500">
                     <a href={route.routeMap} target="_blank" rel="noreferrer">
                       {route.routeMap}
                     </a>
                   </td>
-                  <td class="px-6 py-4">
-                    <span
-                      onClick={() => handleDelete(route?._id)}
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-10 h-10 rounded-md bg-red-50 hover:bg-red-600 hover:text-white hover:shadow-xl cursor-pointer text-red-600 border border-red-600 p-2"
+                  <td class="px-4 ">
+                    <div className="flex items-center justify-center gap-x-2">
+                      {/* <span>
+                        <svg
+                          onClick={() => setShowModal(true)}
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-9 h-9 rounded-md bg-blue-50 hover:bg-blue-600 hover:text-white hover:shadow-xl cursor-pointer text-blue-600 border border-blue-600 p-2"
+                        >
+                          <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                          <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
+                        </svg>
+                      </span> */}
+                      <span
+                        onClick={() => handleDelete(route?._id)}
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                        />
-                      </svg>
-                    </span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-9 h-9 rounded-md bg-red-50 hover:bg-red-600 hover:text-white hover:shadow-xl cursor-pointer text-red-600 border border-red-600 p-2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </td>
                 </tr>
               ))}
