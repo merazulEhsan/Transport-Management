@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
-import baseUrl from "../baseUrl";
 import { useQuery } from "react-query";
+import baseUrl from "../baseUrl";
+import auth from "../firebase.init";
 import Loading from "./Loading";
 
 const Home = () => {

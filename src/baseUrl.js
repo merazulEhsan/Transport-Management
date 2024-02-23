@@ -1,3 +1,3 @@
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://server-transport.vercel.app";
 
 export default baseUrl;
