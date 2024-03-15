@@ -1,23 +1,23 @@
 import React from "react";
-import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import BusRoutes from "./components/Routes";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Drivers from "./components/Drivers";
-import Profile from "./components/Profile";
-import AdminLogin from "./components/AdminLogin";
-import SignUp from "./components/SignUp";
-import Contact from "./components/Contact";
 import About from "./components/About";
-import AdminNavbar from "./components/adminPanel/AdminNavbar";
-import ManageUsers from "./components/adminPanel/ManageUsers";
-import AdminDashboard from "./components/adminPanel/Dashboard";
+import AdminLogin from "./components/AdminLogin";
+import Contact from "./components/Contact";
+import Drivers from "./components/Drivers";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import NotFound from "./components/NotFound";
+import Profile from "./components/Profile";
+import BusRoutes from "./components/Routes";
+import SignUp from "./components/SignUp";
 import AddAdmin from "./components/adminPanel/AddAdmin";
 import AddRoute from "./components/adminPanel/AddRoute";
-import NotFound from "./components/NotFound";
-import UserVerification from "./components/hooks/UserVerification";
+import AdminNavbar from "./components/adminPanel/AdminNavbar";
+import AdminDashboard from "./components/adminPanel/Dashboard";
+import ManageUsers from "./components/adminPanel/ManageUsers";
 import RequireAdmin from "./components/hooks/RequireAdmin";
+import UserVerification from "./components/hooks/UserVerification";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}></Route>
 
         <Route
-          path="/"
+          path="/s"
           element={
             <UserVerification>
               <Navbar />
